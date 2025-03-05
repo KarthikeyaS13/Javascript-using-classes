@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      /*let anchor = document.createElement("a");
+      let name = prompt("Enter name:");
+      let pass = prompt("Enter pass:");
+      if (name == "nani" && pass == "nani") {
+        anchor.href = "amazon.html";
+        anchor.textContent = "Click here to go to Amazon"; // Add visible text
+        document.body.appendChild(anchor);
+      }*/
+
+      /*let name = prompt("Enter name:");
+      let pass = prompt("Enter pass:");
+      if (name == "nani" && pass == "nani") {
+        window.location.href = "amazon.html"; // Redirects immediately
+      }*/
+
+      /* let anchor = document.createElement("a");
+      let name = prompt("Enter name:");
+      let pass = prompt("Enter pass:");
+      if (name == "nani" && pass == "nani") {
+        anchor.href = "amazon.html";
+        anchor.target = "_blank";
+        document.body.appendChild(anchor);
+        anchor.click(); // Simulate a click
+      }*/
+
+      let anchor = document.createElement("a");
+      let name = prompt("Enter name:");
+      let pass = prompt("Enter pass:");
+
+      if (name == "nani" && pass == "nani") {
+        anchor.href = "amazon.html"; // Set the destination page
+        anchor.target = "_self"; // Open in new tab
+        document.body.appendChild(anchor);
+        anchor.click(); // Simulate a click to open the new page
+      }
+    </script>
+  </body>
+</html>
