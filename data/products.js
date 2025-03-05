@@ -36,7 +36,46 @@ class Product {
   getPrice() {
     return `$${formatCurrency(this.priceCents)}`;
   }
+  //only clothing class has this method for a regular class we are also creating this function  returning empty string to avoid error
+  extraInfoHTML() {
+    return "";
+  }
 }
+
+class Clothing extends Product {
+  sizeChartLink;
+
+  constructor(productDetails) {
+    // productDetails is a parameter
+    //here we also want all the id name image etc...
+    //so by using super() we can call the constructor in the above parent class and pass the parameter of the constructor
+    super(productDetails);
+    this.sizeChartLink = productDetails.sizeChartLink;
+  }
+  //this method contains extra information like size chart
+  extraInfoHTML() {
+    return `
+      <a href="${this.sizeChartLink}" target="_blank">Size chart</a>
+    `;
+    //or in amazon.js when calling this function
+    //${product instanceof Clothing ? `<a href="${this.sizeChartLink}" target="_blank">Size chart</a>` : ' '  }
+  }
+}
+//creating a object using class
+/*const tshirt = new Clothing({
+  id: "83d4ca15-0f35-48f5-b7a3-1ea210004f2e",
+  image: "images/products/adults-plain-cotton-tshirt-2-pack-teal.jpg",
+  name: "Adults Plain Cotton T-Shirt - 2 Pack",
+  rating: {
+    stars: 4.5,
+    count: 56,
+  },
+  priceCents: 799,
+  keywords: ["tshirts", "apparel", "mens"],
+  type: "clothing",
+  sizeChartLink: "images/clothing-size-chart.png",
+});
+*/
 
 //.map() loops through an array and for each value it runs a function
 /*takes each value save it in the function{productDetails} and runs the array*/
@@ -512,5 +551,9 @@ export const products = [
     keywords: ["sweaters", "hoodies", "apparel", "mens"],
   },
 ].map((productDetails) => {
+  //separating all the clothing type and adding it to clothing class
+  if (productDetails.type === "clothing") {
+    return new Clothing(productDetails);
+  }
   return new Product(productDetails); //by using new we are converting an object into a class and returning it
 });
