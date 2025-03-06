@@ -1,10 +1,21 @@
 import { renderOrderSummary } from "../../scripts/checkout/orderSummary.js";
 import { loadFromStorage, cart } from "../../data/cart.js";
 
+import { loadProducts } from "../../data/products.js";
+
 describe("test suite: renderOrderSummary", () => {
   const productId1 = "15b6fc6f-327a-4ec4-896f-486349e85a3d";
   const productId2 = "e43638ce-6aa0-4b85-b27f-e1d07eb678c6";
+  //done is a function provided by jasmine when we add done as the parameter beforeall will not go automatically for  the next step now it will wait and only go to nextstep when we call the done function
 
+  beforeAll((done) => {
+    loadProducts(() => {
+      done();
+    });
+    //if we dont call done it is going to wait forever and dont go into next step
+    //done lets us control when to go to the next step
+    //v wait loadproducts() to finish and then goto the next steps
+  });
   beforeEach(() => {
     spyOn(localStorage, "setItem");
 
