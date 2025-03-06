@@ -61,6 +61,30 @@ class Clothing extends Product {
     //${product instanceof Clothing ? `<a href="${this.sizeChartLink}" target="_blank">Size chart</a>` : ' '  }
   }
 }
+
+//Loading products from the backend
+export let products = [];
+
+export function loadProducts(fun) {
+  const xhr = new XMLHttpRequest();
+
+  xhr.addEventListener("load", () => {
+    //here we got the json now we need to convert it back to javascript object or js array in this case
+    products = JSON.parse(xhr.response).map((productDetails) => {
+      if (productDetails.type === "clothing") {
+        return new Clothing(productDetails);
+      }
+      return new Product(productDetails);
+    });
+    console.log("load products");
+
+    fun();
+  });
+
+  xhr.open("GET", "https://supersimplebackend.dev/products");
+  xhr.send();
+}
+
 //creating a object using class by passinng parameters
 /*const tshirt = new Clothing({
   id: "83d4ca15-0f35-48f5-b7a3-1ea210004f2e",
@@ -79,7 +103,8 @@ class Clothing extends Product {
 
 //.map() loops through an array and for each value it runs a function
 /*takes each value save it in the function{productDetails} and runs the array*/
-export const products = [
+/*export const products = [
+
   {
     id: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
     image: "images/products/athletic-cotton-socks-6-pairs.jpg",
@@ -557,3 +582,4 @@ export const products = [
   }
   return new Product(productDetails); //by using new we are converting an object into a class and returning it
 });
+*/

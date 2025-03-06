@@ -1,17 +1,20 @@
 import { cart, addToCart } from "../data/cart.js";
-import { products } from "../data/products.js";
+import { products, loadProducts } from "../data/products.js";
 
 import { formatCurrency } from "./utils/money.js";
 
 //combine all the html together in one string & put it in html
+//in js functions are values so we are putting the function as parameter
+loadProducts(renderProductsGrid);
+//calling from the backend so putting the code in a function and calling it after loadProducts backend call
+function renderProductsGrid() {
+  let productsHTML = "";
 
-let productsHTML = "";
+  //generating html
+  //the forEach product takes the object of each product and runs the function
 
-//generating html
-//the forEach product takes the object of each product and runs the function
-
-products.forEach((product) => {
-  productsHTML += `
+  products.forEach((product) => {
+    productsHTML += `
       <div class="product-container">
           <div class="product-image-container">
             <img class="product-image"
@@ -66,35 +69,36 @@ products.forEach((product) => {
           </button>
         </div>
     `;
-});
-
-document.querySelector(".js-products-grid").innerHTML = productsHTML;
-
-function updateCartQuantity() {
-  //updating the cart number in the basket after updating the cart
-
-  let cartQuantity = 0;
-
-  cart.forEach((cartItem) => {
-    cartQuantity += cartItem.quantity;
   });
 
-  document.querySelector(".js-cart-quantity").innerHTML = cartQuantity;
+  document.querySelector(".js-products-grid").innerHTML = productsHTML;
 
-  let checkoutItems = 0;
-  cart.forEach((cartItem) => {
-    checkoutItems += cartItem.id;
+  function updateCartQuantity() {
+    //updating the cart number in the basket after updating the cart
+
+    let cartQuantity = 0;
+
+    cart.forEach((cartItem) => {
+      cartQuantity += cartItem.quantity;
+    });
+
+    document.querySelector(".js-cart-quantity").innerHTML = cartQuantity;
+
+    let checkoutItems = 0;
+    cart.forEach((cartItem) => {
+      checkoutItems += cartItem.id;
+    });
+
+    document.querySelector(".js-product-items-container").innerHTML =
+      checkoutItems;
+  }
+
+  document.querySelectorAll(".js-add-to-cart").forEach((button) => {
+    button.addEventListener("click", () => {
+      const productId = button.dataset.productId;
+
+      addToCart(productId);
+      updateCartQuantity();
+    });
   });
-
-  document.querySelector(".js-product-items-container").innerHTML =
-    checkoutItems;
 }
-
-document.querySelectorAll(".js-add-to-cart").forEach((button) => {
-  button.addEventListener("click", () => {
-    const productId = button.dataset.productId;
-
-    addToCart(productId);
-    updateCartQuantity();
-  });
-});
