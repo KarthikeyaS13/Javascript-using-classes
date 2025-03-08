@@ -63,7 +63,31 @@ class Clothing extends Product {
 }
 
 //Loading products from the backend
+//using fetch = it is better way to make http requests
+//by default it containes 'GET' request fetch sends a req to backend and then goes to next step saves the response in parameter that containes backend code
 export let products = [];
+
+export function loadProductsFetch() {
+  const promise = fetch("https://supersimplebackend.dev/products")
+    .then((response) => {
+      return response.json();
+    })
+    .then((productsData) => {
+      products = productsData.map((productDetails) => {
+        if (productDetails.type === "clothing") {
+          return new Clothing(productDetails);
+        }
+        return new Product(productDetails);
+      });
+      console.log("load products");
+    });
+  return promise;
+}
+
+//to go to next step
+/*loadProductsFetch().then(() => {
+  console.log('next step');
+});*/
 
 export function loadProducts(fun) {
   const xhr = new XMLHttpRequest();
