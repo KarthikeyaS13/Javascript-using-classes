@@ -15,7 +15,25 @@ import { loadCart } from "../data/cart.js";
 
 //we can run multiple promises atthe same time by using promise.all() we need to give array of promises
 
-Promise.all([
+async function loadPage() {
+  //load the products by using await it waits for the function to finish then load the cart
+  await loadProductsFetch();
+
+  //now we wait for this promise to finish before going to next line
+
+  await new Promise((resolve) => {
+    loadCart(() => {
+      resolve();
+    });
+  });
+  //finally when v load the products & load the cart we render the page
+  renderOrderSummary();
+  renderPaymentSummary();
+  renderCheckoutHeader();
+}
+loadPage();
+
+/*Promise.all([
   loadProductsFetch(),
   new Promise((resolve) => {
     loadCart(() => {
@@ -26,7 +44,7 @@ Promise.all([
   renderOrderSummary();
   renderPaymentSummary();
   renderCheckoutHeader();
-});
+});*/
 
 //call back or a function v run inthe future v dont need to give parameters everytime we can call an anonymous function or a function without a name
 
