@@ -17,15 +17,20 @@ import { loadCart } from "../data/cart.js";
 
 async function loadPage() {
   //load the products by using await it waits for the function to finish then load the cart
-  await loadProductsFetch();
+  try {
+    await loadProductsFetch();
 
-  //now we wait for this promise to finish before going to next line
+    //now we wait for this promise to finish before going to next line
 
-  await new Promise((resolve) => {
-    loadCart(() => {
-      resolve();
+    await new Promise((resolve) => {
+      loadCart(() => {
+        resolve();
+      });
     });
-  });
+  } catch (error) {
+    console.log("Unexpected error. Please try again later");
+  }
+
   //finally when v load the products & load the cart we render the page
   renderOrderSummary();
   renderPaymentSummary();
