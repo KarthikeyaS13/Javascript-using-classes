@@ -17,6 +17,7 @@ class Product {
   name;
   rating;
   priceCents;
+  keywords;
   //when ever we generate a object it runs the constructor automatically this is called a setup code
   //this is converting an object into a  class
   //we are taking a regular object and we putit inside a class then we copy over to its properties
@@ -27,6 +28,7 @@ class Product {
     this.name = productDetails.name;
     this.rating = productDetails.rating;
     this.priceCents = productDetails.priceCents;
+    this.keywords = productDetails.keywords;
   }
 
   getStarsUrl() {

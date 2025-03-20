@@ -36,8 +36,15 @@ export function addToCart(productId) {
     }
   });
 
+  const quantitySelector = document.querySelector(
+    `.js-quantity-selector-${productId}`
+  );
+
+  const quantity = Number(quantitySelector.value);
+
   if (matchingItem) {
-    matchingItem.quantity += 1;
+    matchingItem.quantity += quantity;
+    saveToStorage();
   } else {
     cart.push({
       productId: productId,
@@ -45,7 +52,9 @@ export function addToCart(productId) {
       deliveryOptionId: "1",
     });
   }
-  saveToStorage(); //when ever we update thecart we save to storage
+  saveToStorage();
+
+  //when ever we update thecart we save to storage
 }
 //create new array loop  it add each product to new array except this productId
 export function removeFromCart(productId) {

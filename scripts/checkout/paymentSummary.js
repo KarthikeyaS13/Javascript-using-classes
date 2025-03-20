@@ -109,6 +109,7 @@ export function renderPaymentSummary() {
         //teh data that is attached to the response v need to use respone.json() also it is a promise so v use await in frontto wait this to finish before gng 2 next line
         const order = await response.json();
         addOrder(order);
+
         //v need to save our orders so create order.js in data folder
       } catch (error) {
         console.log("Unexpected error. Try again later");
@@ -116,6 +117,9 @@ export function renderPaymentSummary() {
 
       //after v create an order,go to the orders page by using window.location.href = ' ' href containes the url at top of the browser
       //if we change the  href property it will change at the top and go  to that page
+
+      // Extra feature: make the cart empty after creating an order.
+
       window.location.href = "orders.html";
     });
 }

@@ -67,8 +67,9 @@ export function renderOrderSummary() {
           <span>
             Quantity: <span class="quantity-label">${cartItem.quantity}</span>
           </span>
-          <span class="update-quantity-link link-primary">
-            Update
+          <span class="update-quantity-link link-primary js-update-link" 
+          data-product-id = "${matchingProduct.id}">
+            
           </span>
           <span class="delete-quantity-link js-delete-link-${
             matchingProduct.id
